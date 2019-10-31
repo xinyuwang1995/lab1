@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/semantic/semantic.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+<div class="ui inverted basic segment banner">
+    <div class="ui inverted text menu">
+        <div class="item">
+             <h2 class="ui inverted header>" >Taste</h2>
+        </div>
+        <div class="menu right">
+            <div classs="item">
+                {% if request.user.is_authenticated %}
+                    <div class="ui inline dropdown">
+                        <div class="text">
+                            <img src="{{ request.user.avatar }}" alt="" class="ui avatar image">
+                            {{ request.user.nickname }}
+
+                        </div>
+
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="/logout/" class="item">logout</a>
+                    </div>
+                    </div>
+
+
+
+                {% else %}
+                    <a href="/auth/github/"  class="ui inverted circular button">
+                        <i class="icon github"> </i>log on</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <h1 class="ui inverted center aligned header slogan">
+        This is a shared website
+        <p class="ui sub header">моя лаборатория</p>
+        <button class="ui large green circular button btn-share"><i class="icon plus"></i> show your product</button>
+    </h1>
+</div>
+
+<div class="ui basic segment content">
+    <h1 class="ui center aligned header">product list</h1>
+
+    <div class="ui centered grid container">
+        <div class="ten wide column">
+            <div id="products-wrapper">
+            {% for dt,items in products_dict.items %}
+                {% include 'components/products.tpl.html' with date=dt products=items %}
+
+            {% endfor %}
+            </div>
+            <button id="load-btn" type="button" class="ui green circular button load-more">load more</button>
+        </div>
+    </div>
+</div>
+
+<div class="ui mini modal share">
+    <div class="header">share your product</div>
+    <div class="content">
+        <form action="/product/new/" class="ui form" method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+
+            {% endfor %}
+            <div class="actions">
+                <div class="ui black deny button">cancel</div>
+                <button type="submit" class="ui submit green right labeled icon button btn-submit">submit
+                    <i class="checkmark icon"></i>
+                </button>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/static/semantic/semantic.js"></script>
+<script>
+    $(function(){
+
+        $(".ui.inline.dropdown").dropdown();
+
+        $(".btn-share").bind("click",function(e){
+            {% if request.user.is_authenticated %}
+                $(".ui.mini.modal.share").modal("show");
+            {% else %}
+                window.location.href = '/auth/github/';
+            {% endif %}
+
+
+        });
+
+        $(document).on("click",".upvote-link",function(e){
+
+
+
+            var self = $(this);
+            $.ajax({
+                   type:"POST",
+                   url:"/product/vote/",
+                   data:{
+                       pid: self.data('id'),
+                       csrfmiddlewaretoken:$("[name = 'csrfmiddlewaretoken']").val(),
+
+
+                   },
+                success:function(response){
+                    var errcode = response.errcode;
+                    var message = response.message;
+                    var data = response.data;
+                    if (errcode == 200){
+                        var $vote = self.find(".vote-count");
+
+                        $vote.text(data.vote_count);
+                        self.addClass("upvote-active");
+
+                    }else if(errcode === 401){
+                        window.location.href = '/auth/github/';
+                    }else{
+                        alert(message);
+                    }
+                    console.log(response);
+
+                },
+                error:function(err){
+
+                    alert(err);
+                },
+            })
+        });
+
+
+        $("#load-btn").bind("click",function(e){
+            var lastDate = $("#products-wrapper .date").last().text();
+            $.ajax({
+                type:"GET",
+                url:"/?last_dt=" + lastDate,
+                success:function (response) {
+                    console.log(response);
+                    $("#products-wrapper").append(response);
+
+                },
+                error:function (err){
+                    alert(err);
+                },
+            })
+
+
+
+        });
+
+
+    });
+
+</script>
+
+
+
+
+</body>
+</html>

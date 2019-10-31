@@ -1,0 +1,26 @@
+
+{% load button %}
+<span class="date">{{ date }}</span>
+<div class="ui divider"></div>
+
+<div class="ui items products">
+    {% if products|length > 0 %}
+        {% for product in products %}
+        <div class="item">
+
+            {% vote_button product %}
+            <div class="content">
+
+
+                <div class="header">{{ product.name }}</div>
+                <div class="description">{{ product.digest }}</div>
+                <div class="ui tiny image avatar">
+                    <img src="{{ product.user.avatar }}" alt="{{ product.user.nickname }}">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No product!!!</p>
+    {% endif %}
+</div>
