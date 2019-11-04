@@ -1,0 +1,32 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  OWNER: wangxinyu1995
+  IMAGE_NAME: productaste
+  QNAME: ${OWNER}/${IMAGE_NAME}
+  IMAGE_VERSION: V1.${TRAVIS_BUILD_NUMBER}
+  BUILD_TAG: ${QNAME}:${IMAGE_VERSION}
+  LATEST_TAG: ${QNAME}:latest
+
+#todo ,test
+
+install:
+  - echo "1. install "
+
+script:
+  - echo"2. bulid docker image"
+  - docker --version
+  - docker build -t ${BUILD_TAG} .
+  - docker tag ${BUILD_TAG} ${LATEST_TAG}
+
+
+after_success:
+  - echo "3. push docker image"
+  - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+  - docker push ${BUILD_TAG}
+  - docker push ${LATEST_TAG}
+
+
