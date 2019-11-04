@@ -1,5 +1,5 @@
 FROM python:3.6.7
-WORKDIR D:\\lab1_pro\\src\\app
+WORKDIR /usr/src/app
 
 COPY . .
 
