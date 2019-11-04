@@ -6,8 +6,8 @@ services:
 env:
 
 
-  BUILD_TAG: wangxinuyu1995/productaste:V1.${TRAVIS_BUILD_NUMBER}
-  LATEST_TAG: wangxinuyu1995/productaste:latest
+  BUILD_TAG: wangxinyu1995/productaste:V1.${TRAVIS_BUILD_NUMBER}
+  LATEST_TAG: wangxinyu1995/productaste:latest
 
 #todo ,test
 
