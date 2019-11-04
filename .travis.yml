@@ -15,7 +15,7 @@ install:
   - echo "1. install "
 
 script:
-  - echo"2. bulid docker image"
+  - echo "2. bulid docker image"
   - docker --version
   - docker build -t ${BUILD_TAG} .
   - docker tag ${BUILD_TAG} ${LATEST_TAG}
