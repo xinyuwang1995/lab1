@@ -18,11 +18,7 @@ after_success:
 - docker push ${LATEST_TAG}
 
 
-- openssl aes-256-cbc -K $encrypted_83e13a626f10_key -iv $encrypted_83e13a626f10_iv
-  -in id_rsa.enc -out ~/.ssh/id_rsa -d
-- chmod 600 ~/.ssh/id_rsa
-- ssh root@8.209.76.179 "/root/docker_pro/productaste.sh"
-addons:
-        ssh_known_hosts: 8.206.76.179
+
+
 
 
