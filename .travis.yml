@@ -1,6 +1,7 @@
 sudo: required
 services:
 - docker
+- mysql
 language: python
 python:
   - '3.6'
@@ -13,7 +14,11 @@ install:
 - pip install -r requirements.txt
 
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
+before_script:
+- mysql -e "CREATE DATABASE deveopsdb;"
+- python manage.py makemigrations
 script:
+- python manage.py migrate
 - python manage.py test
 
 - echo "2. bulid docker image"
