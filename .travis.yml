@@ -15,7 +15,7 @@ install:
 
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
 before_script:
-- cp configs.example.json configs.json
+
 - sudo mysql -e "CREATE DATABASE productaste;"
 
 script:
