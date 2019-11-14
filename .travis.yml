@@ -15,7 +15,7 @@ install:
 
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
 before_script:
-- mysql -e "CREATE DATABASE deveopsdb;"
+- mysql -e "CREATE DATABASE productaste;"
 - python manage.py makemigrations
 script:
 - python manage.py migrate
