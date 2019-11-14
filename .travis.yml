@@ -1,12 +1,21 @@
 sudo: required
 services:
 - docker
+language: python
+python:
+  - '3.6'
 env:
   BUILD_TAG: wangxinyu1995/productaste:V1.${TRAVIS_BUILD_NUMBER}
   LATEST_TAG: wangxinyu1995/productaste:latest
 install:
 - echo "1. install "
+- pip install --upgrade pip
+- pip install -r requirements.txt
+
+- export PYTHONPATH=$PYTHONPATH:$(pwd)
 script:
+- python manage.py test
+
 - echo "2. bulid docker image"
 - docker --version
 - docker build -t ${BUILD_TAG} .

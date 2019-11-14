@@ -9,7 +9,11 @@ DATABASES = {
         'HOST':'127.0.0.1',
         'PORT':'3306',
         'OPTIONS':{
-            'charset':'utf8mb4'
-        }
+            'charset':'utf8mb4',
+        "init_command":"SET foreign_key_checks = 0;",
+        },
+    'TEST': {
+            'NAME':'test',
+        },
     }
 }
