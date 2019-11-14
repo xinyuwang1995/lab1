@@ -15,9 +15,11 @@ install:
 
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
 before_script:
-- mysql -e "CREATE DATABASE productaste;"
-- python manage.py makemigrations
+- cp configs.example.json configs.json
+- sudo mysql -e "CREATE DATABASE productaste;"
+
 script:
+- python manage.py makemigrations
 - python manage.py migrate
 - python manage.py test
 
