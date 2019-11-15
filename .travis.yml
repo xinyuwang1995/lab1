@@ -6,6 +6,7 @@ language: python
 python:
   - '3.6'
 env:
+  -DJANGO=2.2.6 DB=mysql
   BUILD_TAG: wangxinyu1995/productaste:V1.${TRAVIS_BUILD_NUMBER}
   LATEST_TAG: wangxinyu1995/productaste:latest
 install:
@@ -16,11 +17,10 @@ install:
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
 before_script:
 
-- sudo mysql -e "CREATE DATABASE productaste;"
+- sudo mysql -e "CREATE DATABASE test;" -u root
 
 script:
-- python manage.py makemigrations
-- python manage.py migrate
+
 - python manage.py test
 
 - echo "2. bulid docker image"
