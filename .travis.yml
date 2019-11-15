@@ -11,7 +11,7 @@ env:
     - PYTHONPATH=$PYTHONPATH:$(pwd)
     - PIP_USE_MIRRORS=true
     - BUILD_ON_TRAVIS=true
-  matrix:
+
     - BUILD_TAG: wangxinyu1995/productaste:V1.${TRAVIS_BUILD_NUMBER}
     - LATEST_TAG: wangxinyu1995/productaste:latest
 install:
