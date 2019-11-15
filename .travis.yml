@@ -11,8 +11,9 @@ env:
     - PYTHONPATH=$PYTHONPATH:$(pwd)
     - PIP_USE_MIRRORS=true
     - BUILD_ON_TRAVIS=true
-  BUILD_TAG: wangxinyu1995/productaste:V1.${TRAVIS_BUILD_NUMBER}
-  LATEST_TAG: wangxinyu1995/productaste:latest
+  matrix:
+    - BUILD_TAG: wangxinyu1995/productaste:V1.${TRAVIS_BUILD_NUMBER}
+    - LATEST_TAG: wangxinyu1995/productaste:latest
 install:
 - echo "1. install "
 - pip install --upgrade pip
