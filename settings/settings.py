@@ -12,5 +12,8 @@ if os.getenv('BUILD_ON_TRAVIS', None):
             'USER': 'travis',
             'PASSWORD': '',
             'HOST': '127.0.0.1',
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                "init_command": "SET foreign_key_checks = 0;",},
         }
     }
