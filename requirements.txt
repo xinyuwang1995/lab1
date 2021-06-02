@@ -7,7 +7,7 @@ mysqlclient==1.4.4
 pytz==2019.3
 requests==2.22.0
 sqlparse==0.3.0
-urllib3==1.25.6
+urllib3==1.26.5
 uWSGI == 2.0.17
 wrapt == 1.10.11
 setuptools == 41.4.0
